@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/gun_revolver_pistol_shot_04.wav-e8595a797b964c738aa3ec565d456b4a.sample"
+
+[deps]
+
+source_file="res://Audio/gun_revolver_pistol_shot_04.wav"
+dest_files=[ "res://.import/gun_revolver_pistol_shot_04.wav-e8595a797b964c738aa3ec565d456b4a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

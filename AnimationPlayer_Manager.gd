@@ -2,6 +2,7 @@ extends AnimationPlayer
 
 # Structure -> Animation name :[Connecting Animation states]
 var states = {
+#states: A dictionary for holding our animation states.
 	"Idle_unarmed":["Knife_equip", "Pistol_equip", "Rifle_equip", "Idle_unarmed"],
 
 	"Pistol_equip":["Pistol_idle"],
@@ -23,6 +24,7 @@ var states = {
 }
 
 var animation_speeds = {
+#animation_speeds: A dictionary for holding all the speeds at which we want to play our animations.
 	"Idle_unarmed":1,
 
 	"Pistol_equip":1.4,
@@ -44,7 +46,9 @@ var animation_speeds = {
 }
 
 var current_state = null
+#current_state: A variable for holding the name of the animation state we are currently in.
 var callback_function = null
+#callback_function: A variable for holding the callback function. 
 
 func _ready():
 	set_animation("Idle_unarmed")

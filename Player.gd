@@ -1,10 +1,15 @@
 extends KinematicBody
 
 const GRAVITY = -24.8
+#GRAVITY: How strong gravity pulls us down.
 var vel = Vector3()
+#vel: Our KinematicBody's velocity.
 const MAX_SPEED = 20
+#MAX_SPEED: The fastest speed we can reach. Once we hit this speed, we will not go any faster.
 const JUMP_SPEED = 18
+#JUMP_SPEED: How high we can jump.
 const ACCEL= 4.5
+#ACCEL: How quickly we accelerate. The higher the value, the sooner we get to max speed.
 
 const MAX_SPRINT_SPEED = 30
 const SPRINT_ACCEL = 18
@@ -15,25 +20,37 @@ var flashlight
 var dir = Vector3()
 
 const DEACCEL= 16
+#DEACCEL: How quickly we are going to decelerate. The higher the value, the sooner we will come to a complete stop.
 const MAX_SLOPE_ANGLE = 40
+#MAX_SLOPE_ANGLE: The steepest angle our KinematicBody will consider as a 'floor'.
 
 var camera
+#camera: The Camera node.
 var rotation_helper
-
+#rotation_helper: A Spatial node holding everything we want to rotate on the X axis (up and down).
 var MOUSE_SENSITIVITY = 0.05
-
+#MOUSE_SENSITIVITY: How sensitive the mouse is. 
 var animation_manager
+#animation_manager: This will hold the AnimationPlayer node and its script, which we wrote previously.
 
 var current_weapon_name = "UNARMED"
+#current_weapon_name: The name of the weapon we are currently using. It has four possible values: UNARMED, KNIFE, PISTOL, and RIFLE
 var weapons = {"UNARMED":null, "KNIFE":null, "PISTOL":null, "RIFLE":null}
+#weapons: A dictionary that will hold all the weapon nodes.
 const WEAPON_NUMBER_TO_NAME = {0:"UNARMED", 1:"KNIFE", 2:"PISTOL", 3:"RIFLE"}
+#WEAPON_NUMBER_TO_NAME: A dictionary allowing us to convert from a weapon's number to its name. We'll use this for changing weapons.
 const WEAPON_NAME_TO_NUMBER = {"UNARMED":0, "KNIFE":1, "PISTOL":2, "RIFLE":3}
+#WEAPON_NAME_TO_NUMBER: A dictionary allowing us to convert from a weapon's name to its number. We'll use this for changing weapons.
 var changing_weapon = false
+#changing_weapon: A boolean to track whether or not we are changing guns/weapons.
 var changing_weapon_name = "UNARMED"
-
+#changing_weapon_name: The name of the weapon we want to change to.
 var health = 100
-
+#health: How much health our player has
 var UI_status_label
+#UI_status_label: A label to show how much health we have, and how much ammo we have both in our gun and in reserve
+var reloading_weapon = false
+var simple_audio_player = preload("res://Simple_Audio_Player.tscn")
 
 func _ready():
 	camera = $Rotation_Helper/Camera
@@ -67,6 +84,8 @@ func _physics_process(delta):
 	process_input(delta)
 	process_movement(delta)
 	process_changing_weapons(delta)
+	process_reloading(delta)
+	process_UI(delta)
 
 func process_input(delta):
 
@@ -146,19 +165,39 @@ func process_input(delta):
 	weapon_change_number = clamp(weapon_change_number, 0, WEAPON_NUMBER_TO_NAME.size()-1)
 	
 	if changing_weapon == false:
-		if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:
-			changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
-			changing_weapon = true
+		if reloading_weapon == false:
+			if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:
+				changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
+				changing_weapon = true
 	# ----------------------------------
-	
-	# ----------------------------------
-	# Firing the weapons
-	if Input.is_action_pressed("fire"):
+	# Reloading
+	if reloading_weapon == false:
 		if changing_weapon == false:
-			var current_weapon = weapons[current_weapon_name]
-			if current_weapon != null:
-				if animation_manager.current_state == current_weapon.IDLE_ANIM_NAME:
-					animation_manager.set_animation(current_weapon.FIRE_ANIM_NAME)
+			if Input.is_action_just_pressed("reload"):
+				var current_weapon = weapons[current_weapon_name]
+				if current_weapon != null:
+					if current_weapon.CAN_RELOAD == true:
+						var current_anim_state = animation_manager.current_state
+						var is_reloading = false
+						for weapon in weapons:
+							var weapon_node = weapons[weapon]
+							if weapon_node != null:
+								if current_anim_state == weapon_node.RELOADING_ANIM_NAME:
+									is_reloading = true
+						if is_reloading == false:
+							reloading_weapon = true
+	# ----------------------------------
+# Firing the weapons
+	if Input.is_action_pressed("fire"):
+		if reloading_weapon == false:
+			if changing_weapon == false:
+				var current_weapon = weapons[current_weapon_name]
+				if current_weapon != null:
+					if current_weapon.ammo_in_weapon > 0:
+						if animation_manager.current_state == current_weapon.IDLE_ANIM_NAME:
+							animation_manager.set_animation(current_weapon.FIRE_ANIM_NAME)
+					else:
+						reloading_weapon = true
 	# ----------------------------------
 
 func process_movement(delta):
@@ -223,6 +262,20 @@ func process_changing_weapons(delta):
 				current_weapon_name = changing_weapon_name
 				changing_weapon_name = ""
 
+func process_reloading(delta):
+	if reloading_weapon == true:
+		var current_weapon = weapons[current_weapon_name]
+		if current_weapon != null:
+			current_weapon.reload_weapon()
+		reloading_weapon = false
+
+func process_UI(delta):
+	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
+		UI_status_label.text = "HEALTH: " + str(health)
+	else:
+		var current_weapon = weapons[current_weapon_name]
+		UI_status_label.text = "HEALTH: " + str(health) + \
+				"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo)
 
 func _input(event):
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -238,3 +291,11 @@ func fire_bullet():
 		return
 
 	weapons[current_weapon_name].fire_weapon()
+
+func create_sound(sound_name, position=null):
+	var audio_clone = simple_audio_player.instance()
+	var scene_root = get_tree().root.get_children()[0]
+	scene_root.add_child(audio_clone)
+	audio_clone.play_sound(sound_name, position)
+
+

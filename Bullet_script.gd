@@ -1,12 +1,17 @@
 extends Spatial
 
 var BULLET_SPEED = 70
+#BULLET_SPEED: The speed at which the bullet travels.
 var BULLET_DAMAGE = 15
+#BULLET_DAMAGE: The damage the bullet will cause to anything with which it collides.
 
 const KILL_TIMER = 4
+#KILL_TIMER: How long the bullet can last without hitting anything.
 var timer = 0
+#timer: A float for tracking how long the bullet has been alive.
 
 var hit_something = false
+#hit_something: A boolean for tracking whether or not we've hit something.
 
 func _ready():
 	$Area.connect("body_entered", self, "collided")
