@@ -51,6 +51,16 @@ var UI_status_label
 #UI_status_label: A label to show how much health we have, and how much ammo we have both in our gun and in reserve
 var reloading_weapon = false
 var simple_audio_player = preload("res://Simple_Audio_Player.tscn")
+var JOYPAD_SENSITIVITY = 2
+#JOYPAD_SENSITIVITY: This is how fast the joypad's joysticks will move the camera.
+const JOYPAD_DEADZONE = 0.15
+#JOYPAD_DEADZONE: The dead zone for the joypad. You may need to adjust depending on your joypad.
+var mouse_scroll_value = 0
+#mouse_scroll_value: The value of the mouse scroll wheel.
+const MOUSE_SENSITIVITY_SCROLL_WHEEL = 0.08
+#MOUSE_SENSITIVITY_SCROLL_WHEEL: How much a single scroll action increases mouse_scroll_value
+const MAX_HEALTH = 150
+#MAX_HEALTH: The maximum amount of health a player can have.
 
 func _ready():
 	camera = $Rotation_Helper/Camera
@@ -104,6 +114,24 @@ func process_input(delta):
 		input_movement_vector.x -= 1
 	if Input.is_action_pressed("movement_right"):
 		input_movement_vector.x = 1
+
+	if Input.get_connected_joypads().size() > 0:
+		
+		var joypad_vec = Vector2(0, 0)
+		
+		if OS.get_name() == "Windows":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 0), -Input.get_joy_axis(0, 1))
+		elif OS.get_name() == "X11":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 1), Input.get_joy_axis(0, 2))
+		elif OS.get_name() == "OSX":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 1), Input.get_joy_axis(0, 2))
+	
+		if joypad_vec.length() < JOYPAD_DEADZONE:
+			joypad_vec = Vector2(0, 0)
+		else:
+			joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE) / (1 - JOYPAD_DEADZONE))
+	
+		input_movement_vector += joypad_vec
 
 	input_movement_vector = input_movement_vector.normalized()
 
@@ -169,6 +197,7 @@ func process_input(delta):
 			if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:
 				changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
 				changing_weapon = true
+				mouse_scroll_value = weapon_change_number
 	# ----------------------------------
 	# Reloading
 	if reloading_weapon == false:
@@ -229,6 +258,39 @@ func process_movement(delta):
 	vel.z = hvel.z
 	vel = move_and_slide(vel,Vector3(0,1,0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
 
+func process_view_input(delta):
+
+	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
+		return
+
+	# NOTE: Until some bugs relating to captured mouses are fixed, we cannot put the mouse view
+	# rotation code here. Once the bug(s) are fixed, code for mouse view rotation code will go here!
+
+	# ----------------------------------
+	# Joypad rotation
+
+	var joypad_vec = Vector2()
+	if Input.get_connected_joypads().size() > 0:
+
+		if OS.get_name() == "Windows":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 2), Input.get_joy_axis(0, 3))
+		elif OS.get_name() == "X11":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
+		elif OS.get_name() == "OSX":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
+
+		if joypad_vec.length() < JOYPAD_DEADZONE:
+			joypad_vec = Vector2(0, 0)
+		else:
+			joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE) / (1 - JOYPAD_DEADZONE))
+
+		rotation_helper.rotate_x(deg2rad(joypad_vec.y * JOYPAD_SENSITIVITY))
+
+		rotate_y(deg2rad(joypad_vec.x * JOYPAD_SENSITIVITY * -1))
+
+		var camera_rot = rotation_helper.rotation_degrees
+		camera_rot.x = clamp(camera_rot.x, -70, 70)
+		rotation_helper.rotation_degrees = camera_rot
 
 func process_changing_weapons(delta):
 	if changing_weapon == true:
@@ -285,7 +347,23 @@ func _input(event):
 		var camera_rot = rotation_helper.rotation_degrees
 		camera_rot.x = clamp(camera_rot.x, -70, 70)
 		rotation_helper.rotation_degrees = camera_rot
-
+	
+	if event is InputEventMouseButton and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		if event.button_index == BUTTON_WHEEL_UP or event.button_index == BUTTON_WHEEL_DOWN:
+			if event.button_index == BUTTON_WHEEL_UP:
+				mouse_scroll_value += MOUSE_SENSITIVITY_SCROLL_WHEEL
+			elif event.button_index == BUTTON_WHEEL_DOWN:
+				mouse_scroll_value -= MOUSE_SENSITIVITY_SCROLL_WHEEL
+	
+			mouse_scroll_value = clamp(mouse_scroll_value, 0, WEAPON_NUMBER_TO_NAME.size()-1)
+	
+			if changing_weapon == false:
+				if reloading_weapon == false:
+					var round_mouse_scroll_value = int(round(mouse_scroll_value))
+					if WEAPON_NUMBER_TO_NAME[round_mouse_scroll_value] != current_weapon_name:
+						changing_weapon_name = WEAPON_NUMBER_TO_NAME[round_mouse_scroll_value]
+						changing_weapon = true
+						mouse_scroll_value = round_mouse_scroll_value
 func fire_bullet():
 	if changing_weapon == true:
 		return
@@ -298,4 +376,11 @@ func create_sound(sound_name, position=null):
 	scene_root.add_child(audio_clone)
 	audio_clone.play_sound(sound_name, position)
 
+func add_health(additional_health):
+	health += additional_health
+	health = clamp(health, 0, MAX_HEALTH)
 
+func add_ammo(additional_ammo):
+	if (current_weapon_name != "UNARMED"):
+		if (weapons[current_weapon_name].CAN_REFILL == true):
+			weapons[current_weapon_name].spare_ammo += weapons[current_weapon_name].AMMO_IN_MAG * additional_ammo
