@@ -4,7 +4,8 @@ export (int, "full size", "small") var kit_size = 0 setget kit_size_change
 
 # 0 = full size pickup, 1 = small pickup
 const AMMO_AMOUNTS = [4, 1]
-
+const GRENADE_AMOUNTS = [2, 0]
+#GRENADE_AMOUNTS: The amount of grenades each pickup contains.
 const RESPAWN_TIME = 20
 var respawn_timer = 0
 
@@ -52,5 +53,10 @@ func kit_size_change_values(size, enable):
 func trigger_body_entered(body):
 	if body.has_method("add_ammo"):
 		body.add_ammo(AMMO_AMOUNTS[kit_size])
+		respawn_timer = RESPAWN_TIME
+		kit_size_change_values(kit_size, false)
+
+	if body.has_method("add_grenade"):
+		body.add_grenade(GRENADE_AMOUNTS[kit_size])
 		respawn_timer = RESPAWN_TIME
 		kit_size_change_values(kit_size, false)
