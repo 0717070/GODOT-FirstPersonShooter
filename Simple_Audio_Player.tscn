@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Simple_Audio_Player.gd" type="Script" id=1]
+[ext_resource path="res://SimpleAudioPlayer.gd" type="Script" id=1]
+
 
 [node name="Simple_Audio_Player" type="Spatial"]
 script = ExtResource( 1 )

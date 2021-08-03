@@ -79,6 +79,15 @@ const OBJECT_GRAB_DISTANCE = 7
 #OBJECT_GRAB_DISTANCE: The distance away from the camera at which the player holds the grabbed object.
 const OBJECT_GRAB_RAY_DISTANCE = 10
 #OBJECT_GRAB_RAY_DISTANCE: The distance the Raycast goes. This is the player's grab distance.
+const RESPAWN_TIME = 4
+#RESPAWN_TIME: The amount of time (in seconds) it takes to respawn.
+var dead_time = 0
+#dead_time: A variable to track how long the player has been dead.
+var is_dead = false
+#is_dead: A variable to track whether or not the player is currently dead.
+var globals
+#globals: A variable to hold the Globals.gd singleton.
+
 
 func _ready():
 	camera = $Rotation_Helper/Camera
@@ -108,16 +117,24 @@ func _ready():
 	UI_status_label = $HUD/Panel/Gun_label
 	flashlight = $Rotation_Helper/Flashlight
 
-func _physics_process(delta):
-	process_input(delta)
-	process_movement(delta)
-	process_view_input(delta)
+	globals = get_node("/root/Globals")
 	
-	if grabbed_object == null:
+	# Start at a random respawn point
+	global_transform.origin = globals.get_respawn_position()
+
+func _physics_process(delta):
+
+	if !is_dead:
+		process_input(delta)
+		process_view_input(delta)
+		process_movement(delta)
+
+	if (grabbed_object == null):
 		process_changing_weapons(delta)
 		process_reloading(delta)
-	
+
 	process_UI(delta)
+	process_respawn(delta)
 
 func process_input(delta):
 
@@ -186,12 +203,12 @@ func process_input(delta):
 	# ----------------------------------
 
 	# ----------------------------------
-	# Capturing/Freeing the cursor
-	if Input.is_action_just_pressed("ui_cancel"):
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+# Capturing/Freeing cursor
+	# Capturing the mouse.
+	# Because our pause menu assures the mouse is visible, all we need to do is
+	# check if the mouse is visible, and if it is make it captured.
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	# ----------------------------------
 	
 	# ----------------------------------
@@ -420,6 +437,8 @@ func process_UI(delta):
 		"\n" + current_grenade + ":" + str(grenade_amounts[current_grenade])
 
 func _input(event):
+	if is_dead:
+		return
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY))
 		self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
@@ -471,3 +490,58 @@ func add_grenade(additional_grenade):
 
 func bullet_hit(damage, bullet_hit_pos):
 	health -= damage
+
+func process_respawn(delta):
+
+	# If we've just died
+	if health <= 0 and !is_dead:
+		$Body_CollisionShape.disabled = true
+		$Feet_CollisionShape.disabled = true
+
+		changing_weapon = true
+		changing_weapon_name = "UNARMED"
+
+		$HUD/Death_Screen.visible = true
+
+		$HUD/Panel.visible = false
+		$HUD/Crosshair.visible = false
+
+		dead_time = RESPAWN_TIME
+		is_dead = true
+
+		if grabbed_object != null:
+			grabbed_object.mode = RigidBody.MODE_RIGID
+			grabbed_object.apply_impulse(Vector3(0, 0, 0), -camera.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE / 2)
+
+			grabbed_object.collision_layer = 1
+			grabbed_object.collision_mask = 1
+
+			grabbed_object = null
+
+	if is_dead:
+		dead_time -= delta
+
+		var dead_time_pretty = str(dead_time).left(3)
+		$HUD/Death_Screen/Label.text = "You died\n" + dead_time_pretty + " seconds till respawn"
+
+		if dead_time <= 0:
+			global_transform.origin = globals.get_respawn_position()
+
+			$Body_CollisionShape.disabled = false
+			$Feet_CollisionShape.disabled = false
+
+			$HUD/Death_Screen.visible = false
+
+			$HUD/Panel.visible = true
+			$HUD/Crosshair.visible = true
+
+			for weapon in weapons:
+				var weapon_node = weapons[weapon]
+				if weapon_node != null:
+					weapon_node.reset_weapon()
+
+			health = 100
+			grenade_amounts = {"Grenade":2, "Sticky Grenade":2}
+			current_grenade = "Grenade"
+
+			is_dead = false
