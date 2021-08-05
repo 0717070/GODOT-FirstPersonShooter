@@ -26,9 +26,9 @@ var respawn_points = null
 
 var audio_clips = {
 	#audio_clips: A dictionary holding all the audio clips Globals.gd can play.
-	"pistol_shot":null, preload("res://Audio/gun_revolver_pistol_shot_04.wav")
-	"rifle_shot": null, preload("res://Audio/gun_semi_auto_rifle_cock_02 (1).wav")
-	"gun_cock":null, preload("res://Audio/gun_rifle_sniper_shot_01 (1).wav")
+	"pistol_shot":preload("res://Audio/gun_revolver_pistol_shot_04.wav"), #---------------------------
+	"rifle_shot":preload("res://Audio/gun_semi_auto_rifle_cock_02 (1).wav"), #---------------------------
+	"gun_cock":preload("res://Audio/gun_rifle_sniper_shot_01 (1).wav") #---------------------------
 }
 
 # The simple audio player scene
@@ -48,6 +48,10 @@ func load_new_scene(new_scene_path):
 	# we do not respawn at the respawn points in the level prior.
 	respawn_points = null
 	get_tree().change_scene(new_scene_path)
+	for sound in created_audio:
+		if (sound != null): #---------------------------
+			sound.queue_free()
+	created_audio.clear() #---------------------------
 
 func set_debug_display(display_on):
 	if display_on == false:
@@ -102,3 +106,15 @@ func get_respawn_position():
 		var respawn_point = rand_range(0, respawn_points.size() - 1)
 		return respawn_points[respawn_point].global_transform.origin
 
+func play_sound(sound_name, loop_sound=false, sound_position=null):
+	if audio_clips.has(sound_name):
+		var new_audio = SIMPLE_AUDIO_PLAYER_SCENE.instance()
+		new_audio.should_loop = loop_sound
+
+		add_child(new_audio)
+		created_audio.append(new_audio)
+
+		new_audio.play_sound(audio_clips[sound_name], sound_position)
+
+	else:
+		print ("ERROR: cannot play sound that does not exist in audio_clips!")
