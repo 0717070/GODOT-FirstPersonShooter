@@ -11,6 +11,7 @@ func _ready():
 
 	globals = get_node("/root/Globals")
 
+
 func play_sound(audio_stream, position=null):
 	if audio_stream == null:
 		print ("No audio stream passed; cannot play sound")
@@ -19,6 +20,11 @@ func play_sound(audio_stream, position=null):
 		return
 
 	audio_node.stream = audio_stream
+
+	# If you are using an AudioStreamPlayer3D, then uncomment these lines to set the position.
+	#if audio_node is AudioStreamPlayer3D:
+	#    if position != null:
+	#        audio_node.global_transform.origin = position
 
 	audio_node.play(0.0)
 

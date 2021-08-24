@@ -470,7 +470,10 @@ func fire_bullet():
 	weapons[current_weapon_name].fire_weapon()
 
 func create_sound(sound_name, position=null):
-	globals.play_sound(sound_name, false, position)
+	var audio_clone = simple_audio_player.instance()
+	var scene_root = get_tree().root.get_children()[0]
+	scene_root.add_child(audio_clone)
+	audio_clone.play_sound(sound_name, position)
 
 func add_health(additional_health):
 	health += additional_health

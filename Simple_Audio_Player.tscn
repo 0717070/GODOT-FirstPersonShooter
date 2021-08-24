@@ -2,6 +2,7 @@
 
 [ext_resource path="res://SimpleAudioPlayer.gd" type="Script" id=1]
 
+
 [node name="Simple_Audio_Player" type="Spatial"]
 script = ExtResource( 1 )
 
