@@ -67,9 +67,9 @@ font_data = ExtResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.23785
-margin_top = -13.773
+margin_top = -12.7136
 margin_right = 4.23779
-margin_bottom = -13.773
+margin_bottom = -12.7136
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -93,9 +93,14 @@ anims/Background_Animation = SubResource( 3 )
 
 [node name="Start_Menu" type="Panel" parent="."]
 modulate = Color( 1, 1, 1, 0.901961 )
-margin_right = 330.0
-margin_bottom = 720.0
+margin_left = 3.17838
+margin_top = 14.8325
+margin_right = 333.178
+margin_bottom = 734.833
 custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Title_Label" type="Label" parent="Start_Menu"]
 margin_left = 20.0
