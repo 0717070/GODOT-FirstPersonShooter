@@ -19,7 +19,9 @@ margin_right = 140.0
 margin_bottom = 115.0
 rect_min_size = Vector2( 280, 230 )
 custom_fonts/title_font = SubResource( 1 )
-window_title = "Game paused"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Button_resume" type="Button" parent="."]
 anchor_left = 0.5

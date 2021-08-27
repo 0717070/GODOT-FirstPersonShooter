@@ -4169,6 +4169,9 @@ transform = Transform( 1, 0, 0, 0, 0.983001, 0.1836, 0, -0.1836, 0.983001, 0, -0
 [node name="HUD" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Crosshair" type="Control" parent="HUD"]
 modulate = Color( 1, 1, 1, 0.705882 )

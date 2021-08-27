@@ -174,7 +174,7 @@ environment = SubResource( 7 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34.4075, -2.58698, 33.3825 )
 
 [node name="Target_Whole" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.30557, 17.4424, 35.4542 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.30557, 17.4424, 39.6054 )
 
 [node name="Health_Pickup" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.39709, 0, 0 )

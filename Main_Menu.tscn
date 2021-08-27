@@ -66,10 +66,10 @@ font_data = ExtResource( 2 )
 [node name="Main_Menu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.23785
-margin_top = -12.7136
-margin_right = 4.23779
-margin_bottom = -12.7136
+margin_left = 9.68915
+margin_top = 0.606591
+margin_right = 9.68896
+margin_bottom = 0.606567
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -93,10 +93,10 @@ anims/Background_Animation = SubResource( 3 )
 
 [node name="Start_Menu" type="Panel" parent="."]
 modulate = Color( 1, 1, 1, 0.901961 )
-margin_left = 3.17838
-margin_top = 14.8325
-margin_right = 333.178
-margin_bottom = 734.833
+margin_left = 7.0
+margin_top = 6.0
+margin_right = 334.0
+margin_bottom = 713.0
 custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -128,6 +128,9 @@ margin_right = 155.0
 margin_bottom = -200.0
 custom_fonts/font = SubResource( 5 )
 text = "Start game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Button_Open_Godot" type="Button" parent="Start_Menu"]
 anchor_left = 0.5
