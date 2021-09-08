@@ -2,7 +2,7 @@ extends Spatial
 
 export (bool) var use_raycast = false
 #use_raycast: An exported boolean so we can change whether the turret uses objects or raycasting for bullets.
-const TURRET_DAMAGE_BULLET = 20
+const TURRET_DAMAGE_BULLET = 55
 #TURRET_DAMAGE_BULLET: The amount of damage a single bullet scene does.
 const TURRET_DAMAGE_RAYCAST = 5
 #TURRET_DAMAGE_RAYCAST: The amount of damage a single Raycast bullet does.

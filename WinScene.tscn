@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://images/oh no robots! doom clone.jpg" type="Texture" id=1]
+[ext_resource path="res://WinScene.gd" type="Script" id=2]
+[ext_resource path="res://WinButton.gd" type="Script" id=3]
+
+[node name="WinScene" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+visible = false
+margin_right = 14.0
+margin_bottom = 14.0
+rect_scale = Vector2( 92.089, 51.418 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 7.0
+margin_bottom = 7.0
+
+[node name="HUD" type="VBoxContainer" parent="."]
+margin_left = 392.794
+margin_top = 463.912
+margin_right = 505.794
+margin_bottom = 483.912
+rect_scale = Vector2( 3.83251, 3.79711 )
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="HUD"]
+margin_right = 113.0
+margin_bottom = 20.0
+text = "Return To Menu"
+align = 0
+script = ExtResource( 3 )
+scene_to_load = "res://Main_Menu.tscn"
+
+[node name="Label" type="Label" parent="."]
+margin_left = 452.0
+margin_top = 342.279
+margin_right = 512.0
+margin_bottom = 356.279
+rect_scale = Vector2( 5.51138, 6.63394 )
+text = "YOU WIN"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground"]
+position = Vector2( 415.96, 388.773 )
+scale = Vector2( 1.09166, 1.07394 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}

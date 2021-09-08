@@ -1,5 +1,6 @@
 extends KinematicBody
 
+const WinScene = ("res://WinScene.tscn")
 const GRAVITY = -24.8
 #GRAVITY: How strong gravity pulls us down.
 var vel = Vector3()
@@ -135,6 +136,7 @@ func _physics_process(delta):
 
 	process_UI(delta)
 	process_respawn(delta)
+
 
 func process_input(delta):
 
@@ -506,6 +508,7 @@ func process_respawn(delta):
 		dead_time = RESPAWN_TIME
 		is_dead = true
 
+
 		if grabbed_object != null:
 			grabbed_object.mode = RigidBody.MODE_RIGID
 			grabbed_object.apply_impulse(Vector3(0, 0, 0), -camera.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE / 2)
@@ -520,6 +523,7 @@ func process_respawn(delta):
 
 		var dead_time_pretty = str(dead_time).left(3)
 		$HUD/Death_Screen/Label.text = "You died\n" + dead_time_pretty + " seconds till respawn"
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 		if dead_time <= 0:
 			global_transform.origin = globals.get_respawn_position()
