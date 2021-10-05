@@ -1,0 +1,482 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://WorkBench.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Health_Pickup.tscn" type="PackedScene" id=3]
+[ext_resource path="res://images/Concrete007_1K_AmbientOcclusion.png" type="Texture" id=4]
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 80, 80 )
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.609375, 0.609375, 0.609375, 1 )
+metallic = 1.0
+metallic_specular = 0.08
+metallic_texture = ExtResource( 4 )
+roughness_texture = ExtResource( 4 )
+roughness_texture_channel = 4
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 40, 0.1, 40 )
+
+[sub_resource type="Skin" id=8]
+
+[sub_resource type="SphereMesh" id=4]
+radius = 3.0
+height = 6.0
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_unshaded = true
+
+[sub_resource type="ProceduralSky" id=6]
+radiance_size = 4
+sky_top_color = Color( 0.472656, 0.704064, 1, 1 )
+sky_horizon_color = Color( 0.24147, 0.469106, 0.824219, 1 )
+sky_curve = 0.25
+ground_bottom_color = Color( 0.0280151, 0.0804138, 0.132812, 1 )
+ground_horizon_color = Color( 0.138657, 0.367696, 0.910156, 1 )
+ground_curve = 0.01
+sun_color = Color( 1, 0.932556, 0.867188, 1 )
+sun_energy = 16.0
+
+[sub_resource type="Environment" id=7]
+background_mode = 2
+background_sky = SubResource( 6 )
+ambient_light_color = Color( 1, 0.934814, 0.90625, 1 )
+ambient_light_sky_contribution = 0.6
+fog_enabled = true
+fog_color = Color( 1, 1, 1, 1 )
+fog_sun_color = Color( 0, 0, 0, 1 )
+fog_height_min = 0.0
+fog_height_max = 100.0
+tonemap_mode = 3
+ssao_enabled = true
+ssao_light_affect = 1.0
+dof_blur_far_distance = 24.0
+dof_blur_far_amount = 0.08
+glow_enabled = true
+glow_levels/1 = true
+glow_levels/2 = true
+glow_levels/5 = false
+glow_intensity = 1.0
+glow_strength = 1.1
+glow_blend_mode = 0
+glow_bicubic_upscale = true
+adjustment_enabled = true
+adjustment_brightness = 0.54
+
+[node name="Testing_Area" type="Spatial"]
+
+[node name="Box" type="Spatial" parent="."]
+
+[node name="Floor_plane" type="MeshInstance" parent="Box"]
+transform = Transform( 7.59033, 0, 0, 0, 1.30679, 0, 0, 0, 6.58314, -1.38453, -0.442944, -0.553131 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Floor_plane"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Floor_plane/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Roof_plane2" type="MeshInstance" parent="Box"]
+transform = Transform( -7.59033, -4.25806e-07, 0, 2.47324e-06, -1.30679, 0, 0, 0, 6.58314, -1.38453, 27.225, 2.54742 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Roof_plane2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Roof_plane2/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Wall_1" type="MeshInstance" parent="Box"]
+transform = Transform( 1.86171, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 63.2276, 37.0752, 163.832 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Wall_1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Wall_1/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Wall_3" type="MeshInstance" parent="Box"]
+transform = Transform( -1.62921e-07, 1, -0.000488118, 0, 0.000488118, 1, 1, 1.62921e-07, -7.95246e-11, -40.2198, 37.0752, 0.0846462 )
+visible = false
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Wall_3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Wall_3/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Wall_4" type="MeshInstance" parent="Box"]
+transform = Transform( -0.237479, 7.73803e-08, 1.26069e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, -0.371509, 37.0752, -37.7189 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Wall_4"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Wall_4/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Hallway" type="Spatial" parent="Box"]
+
+[node name="Left side 1" type="MeshInstance" parent="Box/Hallway"]
+transform = Transform( 1.62921e-07, 1, -0.000188514, 2.55447e-11, -0.000188514, -1, -1.04756, 1.70669e-07, -5.89328e-11, -8.84781, 36.5337, -0.879965 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Hallway/Left side 1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Hallway/Left side 1/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Left side 2" type="MeshInstance" parent="Box/Hallway"]
+transform = Transform( 1.8835e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -0.6, 3.13916e-07, -1.37217e-14, -8.84781, 36.5337, 82.3226 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Hallway/Left side 2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Hallway/Left side 2/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Left side 3" type="MeshInstance" parent="Box/Hallway"]
+transform = Transform( 1.8835e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -0.6, 3.13916e-07, -1.37217e-14, -8.84781, 36.5337, 148.695 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Hallway/Left side 3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Hallway/Left side 3/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Right side 1" type="MeshInstance" parent="Box/Hallway"]
+transform = Transform( -1.62921e-07, -1, 0.000345306, 0, 0.000345306, 1, 0.312641, -5.09358e-08, 1.75884e-11, 8.75253, 37.6755, -25.9813 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+skin = SubResource( 8 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Hallway/Right side 1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Hallway/Right side 1/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Right side 2" type="MeshInstance" parent="Box/Hallway"]
+transform = Transform( -1.62921e-07, -1, 0.000345306, 0, 0.000345306, 1, 0.593247, -9.66525e-08, 3.33746e-11, 8.75253, 37.6755, 41.1059 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+skin = SubResource( 8 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Hallway/Right side 2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Hallway/Right side 2/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Right side 3" type="MeshInstance" parent="Box/Hallway"]
+transform = Transform( -1.62921e-07, -1, 0.000345306, 0, 0.000345306, 1, 0.392033, -6.38704e-08, 2.20548e-11, 8.75253, 37.6755, 124.555 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+skin = SubResource( 8 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Hallway/Right side 3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Hallway/Right side 3/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Right side 4" type="MeshInstance" parent="Box/Hallway"]
+transform = Transform( 1.23733, -1.02842e-06, 1.67551e-13, 0, 1.62921e-07, 1, 1.27741e-07, 1, -1.62921e-07, 58.2147, 37.6755, 140.141 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+skin = SubResource( 8 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Hallway/Right side 4"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Hallway/Right side 4/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Right side 5" type="MeshInstance" parent="Box/Hallway"]
+transform = Transform( 2.01587e-07, -1, 1.62921e-07, 0, 1.62921e-07, 1, 1.23733, 1.62921e-07, -2.65431e-14, 135.717, 37.6755, 117.485 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+skin = SubResource( 8 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Hallway/Right side 5"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Hallway/Right side 5/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Right side 6" type="MeshInstance" parent="Box/Hallway"]
+transform = Transform( 2.01587e-07, 1, -1.62921e-07, 0, 1.62921e-07, 1, -1.23733, 1.62921e-07, -2.65431e-14, 107.648, 37.6755, 90.5969 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+skin = SubResource( 8 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Hallway/Right side 6"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Hallway/Right side 6/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Right side 7" type="MeshInstance" parent="Box/Hallway"]
+transform = Transform( 2.01587e-07, 1, -1.62921e-07, 0, 1.62921e-07, 1, -1.23733, 1.62921e-07, -2.65431e-14, 107.648, 37.2959, -8.021 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+skin = SubResource( 8 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Hallway/Right side 7"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Hallway/Right side 7/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Right side 8" type="MeshInstance" parent="Box/Hallway"]
+transform = Transform( 1.23733, -3.25841e-07, 5.30863e-14, 0, 1.62921e-07, 1, 4.03175e-07, 1, -1.62921e-07, 153.064, 37.2959, -56.5253 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+skin = SubResource( 8 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Hallway/Right side 8"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Hallway/Right side 8/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Right side 9" type="MeshInstance" parent="Box/Hallway"]
+transform = Transform( 2.01587e-07, -1, 1.62921e-07, 0, 1.62921e-07, 1, 1.23733, 1.62921e-07, -2.65431e-14, 203.238, 37.2959, -19.2589 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+skin = SubResource( 8 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Hallway/Right side 9"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Hallway/Right side 9/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Right side 10" type="MeshInstance" parent="Box/Hallway"]
+transform = Transform( -1.23733, 0, 0, 0, 1.62921e-07, 1, 0, -1, 1.62921e-07, 184.581, 37.2959, 20.0657 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+skin = SubResource( 8 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Hallway/Right side 10"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Hallway/Right side 10/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Room 1" type="Spatial" parent="Box"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.52668, 0 )
+
+[node name="room 1 wall 1" type="MeshInstance" parent="Box/Room 1"]
+transform = Transform( -0.589429, 1.9206e-07, 3.12906e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, 32.3638, 37.0752, -19.6894 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Room 1/room 1 wall 1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Room 1/room 1 wall 1/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="room 1 wall 2" type="MeshInstance" parent="Box/Room 1"]
+transform = Transform( -9.60302e-08, -1, -1.62921e-07, 0, -1.62921e-07, 1, -0.690519, 1.90863e-07, 3.10954e-14, 54.2516, 38.6816, 5.73972 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Room 1/room 1 wall 2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Room 1/room 1 wall 2/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="room 1 wall 3" type="MeshInstance" parent="Box/Room 1"]
+transform = Transform( 0.589429, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 32.3638, 37.0752, 27.5437 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Room 1/room 1 wall 3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Room 1/room 1 wall 3/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Room 2" type="Spatial" parent="Box"]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, -0.152798, -6.50287, 38.6883 )
+
+[node name="wall 1" type="MeshInstance" parent="Box/Room 2"]
+transform = Transform( -0.589429, 1.9206e-07, 3.12906e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, 32.3638, 37.0752, -19.6894 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Room 2/wall 1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Room 2/wall 1/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="wall 2" type="MeshInstance" parent="Box/Room 2"]
+transform = Transform( -6.81865e-08, -1, -1.62921e-07, 0, -1.62921e-07, 1, -0.674881, 2.33779e-07, 3.80873e-14, 55.54, 38.6816, 4.02493 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Room 2/wall 2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Room 2/wall 2/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="wall 3" type="MeshInstance" parent="Box/Room 2"]
+transform = Transform( 0.589429, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 32.3638, 37.0752, 27.5437 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Room 2/wall 3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Room 2/wall 3/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Room 3" type="Spatial" parent="Box"]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0.038784, -3.46107, 127.966 )
+
+[node name="wall 1" type="MeshInstance" parent="Box/Room 3"]
+transform = Transform( -0.589429, 1.9206e-07, 3.12906e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, 32.3638, 37.0752, -19.6894 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Room 3/wall 1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Room 3/wall 1/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="wall 2" type="MeshInstance" parent="Box/Room 3"]
+transform = Transform( -5.63464e-07, -1, -1.62921e-07, 0, -1.62921e-07, 1, 0.845116, -1.02662e-06, -1.67258e-13, 55.54, 38.6816, 4.02493 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Room 3/wall 2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Room 3/wall 2/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="wall 3" type="MeshInstance" parent="Box/Room 3"]
+transform = Transform( 0.589429, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 32.3638, 37.0752, 27.5437 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Room 3/wall 3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Room 3/wall 3/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Room 4" type="Spatial" parent="Box"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.12527, 81.4291 )
+
+[node name="room 1 wall 1" type="MeshInstance" parent="Box/Room 4"]
+transform = Transform( -0.589429, 1.9206e-07, 3.12906e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, 32.3638, 37.0752, -19.6894 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Room 4/room 1 wall 1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Room 4/room 1 wall 1/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="room 1 wall 2" type="MeshInstance" parent="Box/Room 4"]
+transform = Transform( -6.93733e-08, -0.722411, -1.17696e-07, 0, -1.17696e-07, 0.722411, -0.633799, 1.75185e-07, 2.85412e-14, 55.559, 31.2058, 5.06178 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Room 4/room 1 wall 2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Room 4/room 1 wall 2/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="room 1 wall 3" type="MeshInstance" parent="Box/Room 4"]
+transform = Transform( 0.589429, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 32.3638, 37.0752, 27.5437 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Room 4/room 1 wall 3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Room 4/room 1 wall 3/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Room 5" type="Spatial" parent="Box"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 126.903, -2.12527, 40.58 )
+
+[node name="room 1 wall 1" type="MeshInstance" parent="Box/Room 5"]
+transform = Transform( -0.589429, 1.9206e-07, 3.12906e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, 31.127, 37.1633, -20.2516 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Room 5/room 1 wall 1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Room 5/room 1 wall 1/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="room 1 wall 2" type="MeshInstance" parent="Box/Room 5"]
+transform = Transform( -6.93733e-08, -0.722411, -1.17696e-07, 0, -1.83248e-07, 1.12477, -0.633799, 1.75185e-07, 2.85412e-14, 53.7838, 31.2058, 5.06178 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Room 5/room 1 wall 2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Room 5/room 1 wall 2/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="room 1 wall 3" type="MeshInstance" parent="Box/Room 5"]
+transform = Transform( 0.589429, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 32.3638, 37.0752, 27.5437 )
+cast_shadow = 2
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="Box/Room 5/room 1 wall 3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Room 5/room 1 wall 3/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="OmniLight" type="OmniLight" parent="Box"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 42.005, 0 )
+shadow_enabled = true
+shadow_color = Color( 0.12549, 0.431373, 0.615686, 1 )
+shadow_bias = 0.4
+omni_range = 4.9
+
+[node name="MeshInstance" type="MeshInstance" parent="Box/OmniLight"]
+cast_shadow = 0
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 7 )
+
+[node name="WorkBench" parent="." instance=ExtResource( 2 )]
+transform = Transform( 6.90555, 0, 0, 0, 8.35259, 0, 0, 0, 9.13628, 51.3718, 6.28645, 0.971202 )
+
+[node name="Health_Pickup" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.475116, 0, 0, 0, 0.475116, 0, 0, 0, 0.475116, 50.2608, 7.14958, -0.102983 )
