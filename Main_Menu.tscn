@@ -39,7 +39,7 @@ __meta__ = {
 testing_area_scene = "res://Testing_Area.tscn"
 space_level_scene = "res://assets/Space_Level_Objects/Space_Level.tscn"
 ruins_level_scene = "res://assets/Ruin_Level_Objects/Ruins_Level.tscn"
-Doom_level_scene = "res://assets/Doom Level objects/Doom_level.tscn"
+Doom_level_scene = "res://Testing_Area Doom.tscn"
 
 [node name="Start_Menu" type="Panel" parent="."]
 modulate = Color( 1, 1, 1, 0.901961 )
