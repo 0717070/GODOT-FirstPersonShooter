@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://WorkBench.tscn" type="PackedScene" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://assets/Gamemode_Objects/Banner_Blue.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Doom assets/GateWayExit.tscn" type="PackedScene" id=7]
 [ext_resource path="res://robot.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/Gamemode_Objects/Banner_Red.tscn" type="PackedScene" id=9]
+[ext_resource path="res://health kit sign.jpg" type="Texture" id=10]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 80, 80 )
@@ -77,12 +79,20 @@ glow_bicubic_upscale = true
 adjustment_enabled = true
 adjustment_brightness = 0.54
 
+[sub_resource type="QuadMesh" id=12]
+
+[sub_resource type="SpatialMaterial" id=13]
+albedo_texture = ExtResource( 10 )
+
+[sub_resource type="ConcavePolygonShape" id=14]
+data = PoolVector3Array( -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, -0.5, 0 )
+
 [node name="Testing_Area" type="Spatial"]
 
 [node name="Box" type="Spatial" parent="."]
 
 [node name="Floor_plane" type="MeshInstance" parent="Box"]
-transform = Transform( 7.59033, 0, 0, 0, 1.30679, 0, 0, 0, 6.58314, -0.691842, -0.442944, -0.57222 )
+transform = Transform( 7.59033, 0, 0, 0, 1.30679, 0, 0, 0, 6.58314, -0.87518, -0.501019, -0.164871 )
 mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
 
@@ -739,13 +749,13 @@ shape = SubResource( 7 )
 transform = Transform( 7, 0, 0, 0, 8, 0, 0, 0, 9, 51, 6, 10 )
 
 [node name="Health_Pickup" parent="Box/WorkBench + Health" instance=ExtResource( 3 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 50, 7, 10 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 48.9689, 7, 10 )
 
 [node name="WorkBench2" parent="Box/WorkBench + Health" instance=ExtResource( 2 )]
 transform = Transform( -7, 0, -2.93257e-06, 0, 8, 0, 2.28089e-06, 0, -9, 18, 6, -90 )
 
 [node name="Health_Pickup2" parent="Box/WorkBench + Health" instance=ExtResource( 3 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 18, 6, -90 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 19.7088, 6, -90 )
 
 [node name="WorkBench3" parent="Box/WorkBench + Health" instance=ExtResource( 2 )]
 transform = Transform( -7, 0, -2.93257e-06, 0, 8, 0, 2.28089e-06, 0, -9, -91, 6, 21 )
@@ -757,7 +767,7 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -91, 6, 21 )
 transform = Transform( 7, 0, 0, 0, 8, 0, 0, 0, 9, -20, 6, -179.814 )
 
 [node name="Health_Pickup4" parent="Box/WorkBench + Health" instance=ExtResource( 3 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -20, 6, -180 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -21.6672, 6, -180 )
 
 [node name="OmniLight" type="OmniLight" parent="Box"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 42.005, 0 )
@@ -792,7 +802,24 @@ transform = Transform( -4.88762e-07, 0, 1, 0, 4.5, 0, -3, 0, -1.62921e-07, 54.74
 [node name="Banner_Black5" parent="." instance=ExtResource( 6 )]
 transform = Transform( -4.88762e-07, 0, 1, 0, 4.5, 0, -3, 0, -1.62921e-07, -42, 35, -147 )
 
+[node name="Banner_Red" parent="." instance=ExtResource( 9 )]
+transform = Transform( -1.22191e-07, 0, 0.5, 0, 2.75, 0, -0.75, 0, -8.14603e-08, 13.75, 22.07, 39.507 )
+
+[node name="Banner_Red2" parent="." instance=ExtResource( 9 )]
+transform = Transform( -1.22191e-07, 0, 0.5, 0, 2.75, 0, -0.75, 0, -8.14603e-08, 13.75, 22.07, 15.6062 )
+
 [node name="GateWayExit" parent="." instance=ExtResource( 7 )]
 transform = Transform( -4.88762e-08, 0, 0.25, 0, 0.3, 0, -0.3, 0, -4.07302e-08, -58, 0, 33 )
 
 [node name="Robot" parent="." instance=ExtResource( 8 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, -78.611 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( -3.09549e-06, 0, -426.271, 0, 12, 0, 19, 0, -6.94484e-05, 13.99, 12.567, 27.584 )
+mesh = SubResource( 12 )
+material/0 = SubResource( 13 )
+
+[node name="StaticBody2" type="StaticBody" parent="MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody2"]
+shape = SubResource( 14 )

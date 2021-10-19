@@ -1,7 +1,7 @@
 extends Spatial
 
 export (int, "full size", "small") var kit_size = 0 setget kit_size_change
-#kit_size: The size of the health pickup. Notice how we're using a setget function to tell if it's changed.
+#kit_size: The size of the health pickup.
 
 # 0 = full size pickup, 1 = small pickup
 const HEALTH_AMOUNTS = [70, 30]

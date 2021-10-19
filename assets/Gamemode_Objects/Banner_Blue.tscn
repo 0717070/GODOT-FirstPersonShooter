@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/Gamemode_Objects/Metal_Two.material" type="Material" id=1]
 [ext_resource path="res://assets/Material_003.material" type="Material" id=2]
@@ -32,9 +32,12 @@ surfaces/1 = {
 "vertex_count": 136
 }
 
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.0666667, 0.0156863, 0.0156863, 1 )
+
 [node name="Banner_Blue" type="MeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 9, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -30.2934, 8.90664, -0.00758743 )
 use_in_baked_light = true
 mesh = SubResource( 1 )
 material/0 = null
-material/1 = null
+material/1 = SubResource( 2 )
