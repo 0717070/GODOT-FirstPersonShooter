@@ -357,8 +357,10 @@ text = "Back"
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground"]
+visible = false
 position = Vector2( 640.06, 361.21 )
 scale = Vector2( 0.808541, 0.804757 )
 texture = ExtResource( 7 )

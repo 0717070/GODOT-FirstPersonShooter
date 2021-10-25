@@ -153,6 +153,10 @@ change_grenade={
  ]
 }
 
+[memory]
+
+limits/message_queue/max_size_kb=1027
+
 [rendering]
 
 quality/filters/msaa=2
