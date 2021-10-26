@@ -230,7 +230,6 @@ mesh = SubResource( 4 )
 material/0 = SubResource( 5 )
 
 [node name="Ray_Cast" type="RayCast" parent="Head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.35444, -2.734 )
 cast_to = Vector3( 0, 0, -40 )
 
 [node name="Barrel_End" type="Spatial" parent="Head"]

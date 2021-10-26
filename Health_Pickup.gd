@@ -54,3 +54,7 @@ func trigger_body_entered(body):
 		body.add_health(HEALTH_AMOUNTS[kit_size])
 		respawn_timer = RESPAWN_TIME
 		kit_size_change_values(kit_size, false)
+
+
+func _on_AreaDoor_body_entered(body):
+	pass # Replace with function body.

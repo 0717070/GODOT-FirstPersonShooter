@@ -168,5 +168,7 @@ func bullet_hit(damage, bullet_hit_pos):
 	turret_health -= damage
 
 	if turret_health <= 0:
+		Globals.PlayerScore += 1
+		print (Globals.PlayerScore)
 		smoke_particles.emitting = true
 		destroyed_timer = DESTROYED_TIME

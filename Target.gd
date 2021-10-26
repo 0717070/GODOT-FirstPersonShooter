@@ -37,6 +37,8 @@ func bullet_hit(damage, bullet_transform):
 	current_health -= damage
 
 	if current_health <= 0:
+		Globals.PlayerScore +=1
+		print (Globals.PlayerScore)
 		var clone = destroyed_target.instance()
 		broken_target_holder.add_child(clone)
 

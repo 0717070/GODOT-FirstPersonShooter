@@ -427,6 +427,9 @@ func process_reloading(delta):
 		reloading_weapon = false
 
 func process_UI(delta):
+	#Updatign the players score
+	$"HUD/Panel_Score/Score".text = str(Globals.PlayerScore)
+	#UI processing
 	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
 		# First line: Health, second line: Grenades
 		UI_status_label.text = "HEALTH: " + str(health) + \

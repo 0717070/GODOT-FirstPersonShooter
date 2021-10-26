@@ -21,10 +21,10 @@ var joypad_sensitivity = 2
 #joypad_sensitivity: The current sensitivity for our joypad, so we can load it in Player.gd
 var respawn_points = null
 #respawn_points: A variable to hold all the respawn points in a level
+var PlayerScore = 0
+#variable for the players score, (current player score starts at 0).
+# v All the audio files.
 
-# All the audio files.
-
-# You will need to provide your own sound files.
 var audio_clips = {
 		"Pistol_shot":preload("res://Audio/gun_revolver_pistol_shot_04.wav"),
 		"Rifle_shot":preload("res://Audio/gun_rifle_sniper_shot_01 (1).wav"),
