@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://WorkBench.tscn" type="PackedScene" id=2]
@@ -31,6 +31,7 @@
 [ext_resource path="res://images/Concrete007_1K_Color.jpg" type="Texture" id=29]
 [ext_resource path="res://images/Concrete007_1K_Color.png" type="Texture" id=30]
 [ext_resource path="res://Area.gd" type="Script" id=31]
+[ext_resource path="res://grenades do damages.png" type="Texture" id=32]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 80, 80 )
@@ -116,6 +117,9 @@ data = PoolVector3Array( -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0
 
 [sub_resource type="SpatialMaterial" id=18]
 albedo_texture = ExtResource( 10 )
+
+[sub_resource type="SpatialMaterial" id=23]
+albedo_texture = ExtResource( 32 )
 
 [sub_resource type="BoxShape" id=19]
 
@@ -205,582 +209,583 @@ material/0 = ExtResource( 5 )
 [node name="CollisionShape" type="CollisionShape" parent="Box/Walls/New wall 3/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="Walls4" type="Spatial" parent="Box"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, -270 )
+[node name="Walls4" type="Spatial" parent="Box/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -270 )
 
-[node name="New wall" type="MeshInstance" parent="Box/Walls4"]
+[node name="New wall" type="MeshInstance" parent="Box/Walls/Walls4"]
 transform = Transform( 40, 0, 0, 0, 38, 0, 0, 0, 1, 80, 38, 50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Walls4/New wall"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Walls4/New wall"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Walls4/New wall/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Walls4/New wall/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="New wall 2" type="MeshInstance" parent="Box/Walls4"]
+[node name="New wall 2" type="MeshInstance" parent="Box/Walls/Walls4"]
 transform = Transform( 40, 0, 0, 0, 38, 0, 0, 0, 1, 0, 38, 50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Walls4/New wall 2"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Walls4/New wall 2"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Walls4/New wall 2/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Walls4/New wall 2/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="New walls 3" type="MeshInstance" parent="Box/Walls4"]
+[node name="New walls 3" type="MeshInstance" parent="Box/Walls/Walls4"]
 transform = Transform( 40, 0, 0, 0, 38, 0, 0, 0, 1, -80, 38, 50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Walls4/New walls 3"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Walls4/New walls 3"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Walls4/New walls 3/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Walls4/New walls 3/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="New walls 4" type="MeshInstance" parent="Box/Walls4"]
+[node name="New walls 4" type="MeshInstance" parent="Box/Walls/Walls4"]
 transform = Transform( 40, 0, 0, 0, 38, 0, 0, 0, 1, 160, 38, 50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Walls4/New walls 4"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Walls4/New walls 4"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Walls4/New walls 4/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Walls4/New walls 4/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="New wall 3" type="MeshInstance" parent="Box/Walls4"]
+[node name="New wall 3" type="MeshInstance" parent="Box/Walls/Walls4"]
 transform = Transform( 40, 0, 0, 0, 38, 0, 0, 0, 1, 240, 38, 50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Walls4/New wall 3"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Walls4/New wall 3"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Walls4/New wall 3/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Walls4/New wall 3/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="Walls2" type="Spatial" parent="Box"]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -170, 0, 0 )
+[node name="Walls2" type="Spatial" parent="Box/Walls"]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -90, 0, 0 )
 
-[node name="New wall" type="MeshInstance" parent="Box/Walls2"]
+[node name="New wall" type="MeshInstance" parent="Box/Walls/Walls2"]
 transform = Transform( 40, 0, 0, 0, 38, 0, 0, 0, 1, 80, 38, 50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Walls2/New wall"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Walls2/New wall"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Walls2/New wall/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Walls2/New wall/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="New wall 2" type="MeshInstance" parent="Box/Walls2"]
+[node name="New wall 2" type="MeshInstance" parent="Box/Walls/Walls2"]
 transform = Transform( 40, 0, 0, 0, 38, 0, 0, 0, 1, 0, 38, 50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Walls2/New wall 2"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Walls2/New wall 2"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Walls2/New wall 2/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Walls2/New wall 2/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="New walls 3" type="MeshInstance" parent="Box/Walls2"]
+[node name="New walls 3" type="MeshInstance" parent="Box/Walls/Walls2"]
 transform = Transform( 40, 0, 0, 0, 38, 0, 0, 0, 1, -80, 38, 50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Walls2/New walls 3"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Walls2/New walls 3"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Walls2/New walls 3/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Walls2/New walls 3/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="New walls 4" type="MeshInstance" parent="Box/Walls2"]
+[node name="New walls 4" type="MeshInstance" parent="Box/Walls/Walls2"]
 transform = Transform( 40, 0, 0, 0, 38, 0, 0, 0, 1, 160, 38, 50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Walls2/New walls 4"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Walls2/New walls 4"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Walls2/New walls 4/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Walls2/New walls 4/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="New wall 3" type="MeshInstance" parent="Box/Walls2"]
+[node name="New wall 3" type="MeshInstance" parent="Box/Walls/Walls2"]
 transform = Transform( 40, 0, 0, 0, 38, 0, 0, 0, 1, 240, 38, 50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Walls2/New wall 3"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Walls2/New wall 3"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Walls2/New wall 3/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Walls2/New wall 3/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="Walls3" type="Spatial" parent="Box"]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 70, 0, 0 )
+[node name="Walls3" type="Spatial" parent="Box/Walls"]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 150, 0, 0 )
 
-[node name="New wall" type="MeshInstance" parent="Box/Walls3"]
+[node name="New wall" type="MeshInstance" parent="Box/Walls/Walls3"]
 transform = Transform( 40, 0, 0, 0, 38, 0, 0, 0, 1, 80, 38, 50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Walls3/New wall"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Walls3/New wall"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Walls3/New wall/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Walls3/New wall/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="New wall 2" type="MeshInstance" parent="Box/Walls3"]
+[node name="New wall 2" type="MeshInstance" parent="Box/Walls/Walls3"]
 transform = Transform( 40, 0, 0, 0, 38, 0, 0, 0, 1, 0, 38, 50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Walls3/New wall 2"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Walls3/New wall 2"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Walls3/New wall 2/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Walls3/New wall 2/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="New walls 3" type="MeshInstance" parent="Box/Walls3"]
+[node name="New walls 3" type="MeshInstance" parent="Box/Walls/Walls3"]
 transform = Transform( 40, 0, 0, 0, 38, 0, 0, 0, 1, -80, 38, 50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Walls3/New walls 3"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Walls3/New walls 3"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Walls3/New walls 3/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Walls3/New walls 3/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="New walls 4" type="MeshInstance" parent="Box/Walls3"]
+[node name="New walls 4" type="MeshInstance" parent="Box/Walls/Walls3"]
 transform = Transform( 40, 0, 0, 0, 38, 0, 0, 0, 1, 160, 38, 50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Walls3/New walls 4"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Walls3/New walls 4"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Walls3/New walls 4/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Walls3/New walls 4/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="New wall 3" type="MeshInstance" parent="Box/Walls3"]
+[node name="New wall 3" type="MeshInstance" parent="Box/Walls/Walls3"]
 transform = Transform( 40, 0, 0, 0, 38, 0, 0, 0, 1, 240, 38, 50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Walls3/New wall 3"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Walls3/New wall 3"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Walls3/New wall 3/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Walls3/New wall 3/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="Smaller Walls 2" type="Spatial" parent="Box"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 0, 0 )
+[node name="Smaller Walls 2" type="Spatial" parent="Box/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 0, 0 )
 
-[node name="small walls r15" type="MeshInstance" parent="Box/Smaller Walls 2"]
+[node name="small walls r15" type="MeshInstance" parent="Box/Walls/Smaller Walls 2"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 74, 19, -110 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 2/small walls r15"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 2/small walls r15"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 2/small walls r15/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 2/small walls r15/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r16" type="MeshInstance" parent="Box/Smaller Walls 2"]
+[node name="small walls r16" type="MeshInstance" parent="Box/Walls/Smaller Walls 2"]
 transform = Transform( -3.25841e-06, 0, 1, 0, 19, 0, -20, 0, -1.62921e-07, 55, 19, -91 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 2/small walls r16"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 2/small walls r16"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 2/small walls r16/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 2/small walls r16/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r17" type="MeshInstance" parent="Box/Smaller Walls 2"]
+[node name="small walls r17" type="MeshInstance" parent="Box/Walls/Smaller Walls 2"]
 transform = Transform( -3.25841e-06, 0, 1, 0, 19, 0, -20, 0, -1.62921e-07, 55, 19, 11 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 2/small walls r17"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 2/small walls r17"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 2/small walls r17/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 2/small walls r17/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r18" type="MeshInstance" parent="Box/Smaller Walls 2"]
+[node name="small walls r18" type="MeshInstance" parent="Box/Walls/Smaller Walls 2"]
 transform = Transform( -3.25841e-06, 0, 1, 0, 19, 0, -20, 0, -1.62921e-07, 116.227, 19, 30 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 2/small walls r18"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 2/small walls r18"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 2/small walls r18/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 2/small walls r18/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r19" type="MeshInstance" parent="Box/Smaller Walls 2"]
+[node name="small walls r19" type="MeshInstance" parent="Box/Walls/Smaller Walls 2"]
 transform = Transform( -3.25841e-06, 0, 1, 0, 19, 0, -20, 0, -1.62921e-07, 95, 19, -51 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 2/small walls r19"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 2/small walls r19"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 2/small walls r19/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 2/small walls r19/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r24" type="MeshInstance" parent="Box/Smaller Walls 2"]
+[node name="small walls r24" type="MeshInstance" parent="Box/Walls/Smaller Walls 2"]
 transform = Transform( -3.25841e-06, 0, 1, 0, 19, 0, -20, 0, -1.62921e-07, 95, 19, -91.0013 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 2/small walls r24"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 2/small walls r24"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 2/small walls r24/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 2/small walls r24/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r20" type="MeshInstance" parent="Box/Smaller Walls 2"]
+[node name="small walls r20" type="MeshInstance" parent="Box/Walls/Smaller Walls 2"]
 transform = Transform( -3.25841e-06, 0, 1, 0, 19, 0, -20, 0, -1.62921e-07, 95, 19, 30 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 2/small walls r20"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 2/small walls r20"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 2/small walls r20/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 2/small walls r20/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r21" type="MeshInstance" parent="Box/Smaller Walls 2"]
+[node name="small walls r21" type="MeshInstance" parent="Box/Walls/Smaller Walls 2"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 75, 19, -51 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 2/small walls r21"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 2/small walls r21"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 2/small walls r21/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 2/small walls r21/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r22" type="MeshInstance" parent="Box/Smaller Walls 2"]
+[node name="small walls r22" type="MeshInstance" parent="Box/Walls/Smaller Walls 2"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 75, 19, 11 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 2/small walls r22"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 2/small walls r22"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 2/small walls r22/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 2/small walls r22/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r25" type="MeshInstance" parent="Box/Smaller Walls 2"]
+[node name="small walls r25" type="MeshInstance" parent="Box/Walls/Smaller Walls 2"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 115, 19, -32 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 2/small walls r25"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 2/small walls r25"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 2/small walls r25/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 2/small walls r25/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="Smaller Walls 3" type="Spatial" parent="Box"]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 16.8873, 0, -75.4814 )
+[node name="Smaller Walls 3" type="Spatial" parent="Box/Walls"]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 96.8873, 0, -75.4814 )
 
-[node name="small walls r15" type="MeshInstance" parent="Box/Smaller Walls 3"]
+[node name="small walls r15" type="MeshInstance" parent="Box/Walls/Smaller Walls 3"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 74, 19, -110 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 3/small walls r15"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 3/small walls r15"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 3/small walls r15/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 3/small walls r15/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r23" type="MeshInstance" parent="Box/Smaller Walls 3"]
+[node name="small walls r23" type="MeshInstance" parent="Box/Walls/Smaller Walls 3"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 132.504, 19, -70.9675 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 3/small walls r23"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 3/small walls r23"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 3/small walls r23/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 3/small walls r23/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r16" type="MeshInstance" parent="Box/Smaller Walls 3"]
+[node name="small walls r16" type="MeshInstance" parent="Box/Walls/Smaller Walls 3"]
 transform = Transform( -3.25841e-06, 0, 1, 0, 19, 0, -20, 0, -1.62921e-07, 95, 19, -91 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 3/small walls r16"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 3/small walls r16"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 3/small walls r16/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 3/small walls r16/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r17" type="MeshInstance" parent="Box/Smaller Walls 3"]
+[node name="small walls r17" type="MeshInstance" parent="Box/Walls/Smaller Walls 3"]
 transform = Transform( -3.25841e-06, 0, 1, 0, 19, 0, -20, 0, -1.62921e-07, 55, 19, 11 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 3/small walls r17"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 3/small walls r17"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 3/small walls r17/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 3/small walls r17/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r18" type="MeshInstance" parent="Box/Smaller Walls 3"]
+[node name="small walls r18" type="MeshInstance" parent="Box/Walls/Smaller Walls 3"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 115, 19, 49 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 3/small walls r18"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 3/small walls r18"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 3/small walls r18/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 3/small walls r18/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r19" type="MeshInstance" parent="Box/Smaller Walls 3"]
+[node name="small walls r19" type="MeshInstance" parent="Box/Walls/Smaller Walls 3"]
 transform = Transform( -3.25841e-06, 0, 1, 0, 19, 0, -20, 0, -1.62921e-07, 95, 19, -51 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 3/small walls r19"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 3/small walls r19"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 3/small walls r19/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 3/small walls r19/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r20" type="MeshInstance" parent="Box/Smaller Walls 3"]
+[node name="small walls r20" type="MeshInstance" parent="Box/Walls/Smaller Walls 3"]
 transform = Transform( -3.25841e-06, 0, 1, 0, 19, 0, -20, 0, -1.62921e-07, 95, 19, 30 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 3/small walls r20"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 3/small walls r20"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 3/small walls r20/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 3/small walls r20/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r24" type="MeshInstance" parent="Box/Smaller Walls 3"]
+[node name="small walls r24" type="MeshInstance" parent="Box/Walls/Smaller Walls 3"]
 transform = Transform( -3.25841e-06, 0, 1, 0, 19, 0, -20, 0, -1.62921e-07, 95, 19, 82 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 3/small walls r24"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 3/small walls r24"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 3/small walls r24/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 3/small walls r24/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r21" type="MeshInstance" parent="Box/Smaller Walls 3"]
+[node name="small walls r21" type="MeshInstance" parent="Box/Walls/Smaller Walls 3"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 75, 19, -60 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 3/small walls r21"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 3/small walls r21"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 3/small walls r21/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 3/small walls r21/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r22" type="MeshInstance" parent="Box/Smaller Walls 3"]
+[node name="small walls r22" type="MeshInstance" parent="Box/Walls/Smaller Walls 3"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 75, 19, 11 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 3/small walls r22"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 3/small walls r22"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 3/small walls r22/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 3/small walls r22/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r25" type="MeshInstance" parent="Box/Smaller Walls 3"]
+[node name="small walls r25" type="MeshInstance" parent="Box/Walls/Smaller Walls 3"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 125, 19, 11 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls 3/small walls r25"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls 3/small walls r25"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls 3/small walls r25/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls 3/small walls r25/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="Smaller Walls" type="Spatial" parent="Box"]
+[node name="Smaller Walls" type="Spatial" parent="Box/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, 0 )
 
-[node name="small walls r" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls r" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( 0, 0, 1, 0, 19, 0, -20, 0, 0, 15, 19, 30 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls r"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls r"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls r/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls r/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r2" type="MeshInstance" parent="Box/Smaller Walls"]
-transform = Transform( 0, 0, 1, 0, 19, 0, -20, 0, 0, 14.9814, 19, -10.1563 )
+[node name="small walls r2" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
+transform = Transform( 0, 0, 1, 0, 19, 0, -20, 0, 0, 15, 19, -9.99 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls r2"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls r2"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls r2/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls r2/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r4" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls r4" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 34, 19, -30 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls r4"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls r4"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls r4/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls r4/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r5" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls r5" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 34, 19, -70 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls r5"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls r5"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls r5/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls r5/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r6" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls r6" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 34, 19, -110 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls r6"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls r6"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls r6/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls r6/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r7" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls r7" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 74, 19, -110 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls r7"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls r7"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls r7/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls r7/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r8" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls r8" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( -3.25841e-06, 0, 1, 0, 19, 0, -20, 0, -1.62921e-07, 95, 19, -91 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls r8"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls r8"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls r8/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls r8/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r9" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls r9" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( -3.25841e-06, 0, 1, 0, 19, 0, -20, 0, -1.62921e-07, 55, 19, 11 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls r9"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls r9"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls r9/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls r9/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r14" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls r14" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 5, 19, -111 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls r14"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls r14"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls r14/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls r14/StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 9.09495e-13, 0, 1, 0, 0, 0 )
 shape = SubResource( 7 )
 
-[node name="small walls r13" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls r13" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( -3.25841e-06, 0, 1, 0, 19, 0, -20, 0, -1.62921e-07, 95, 19, -51 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls r13"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls r13"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls r13/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls r13/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r11" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls r11" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( -3.25841e-06, 0, 1, 0, 19, 0, -20, 0, -1.62921e-07, 95, 19, 30 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls r11"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls r11"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls r11/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls r11/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r10" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls r10" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 75, 19, -51 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls r10"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls r10"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls r10/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls r10/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r12" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls r12" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, 75, 19, 11 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls r12"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls r12"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls r12/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls r12/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls r3" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls r3" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( 0, 0, 1, 0, 19, 0, -20, 0, 0, 15, 19, -90 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls r3"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls r3"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls r3/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls r3/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls l" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls l" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( 0, 0, 1, 0, 19, 0, -20, 0, 0, -15, 19, 30 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls l"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls l"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls l/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls l/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls l2" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls l2" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( 0, 0, 1, 0, 19, 0, -20, 0, 0, -15, 19, -10 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls l2"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls l2"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls l2/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls l2/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls l3" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls l3" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( 0, 0, 1, 0, 19, 0, -20, 0, 0, -15, 19, -50 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls l3"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls l3"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls l3/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls l3/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls l4" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls l4" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( 0, 0, 1, 0, 19, 0, -20, 0, 0, -15, 19, -130 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls l4"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls l4"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls l4/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls l4/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls l5" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls l5" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( 0, 0, 1, 0, 19, 0, -20, 0, 0, -15, 19, -170.065 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls l5"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls l5"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls l5/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls l5/StaticBody"]
 shape = SubResource( 7 )
 
-[node name="small walls l6" type="MeshInstance" parent="Box/Smaller Walls"]
+[node name="small walls l6" type="MeshInstance" parent="Box/Walls/Smaller Walls"]
 transform = Transform( 20, 0, 0, 0, 19, 0, 0, 0, 1, -35, 19, -189 )
 mesh = SubResource( 6 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Box/Smaller Walls/small walls l6"]
+[node name="StaticBody" type="StaticBody" parent="Box/Walls/Smaller Walls/small walls l6"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Box/Smaller Walls/small walls l6/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Box/Walls/Smaller Walls/small walls l6/StaticBody"]
 shape = SubResource( 7 )
 
 [node name="WorkBench + Health" type="Spatial" parent="Box"]
@@ -856,6 +861,18 @@ transform = Transform( -3.05477e-08, 0, 0.125, 0, 0.6875, 0, -0.1875, 0, -2.0365
 
 [node name="Banner_Red4" parent="Banners" instance=ExtResource( 9 )]
 transform = Transform( -3.05477e-08, 0, 0.125, 0, 0.6875, 0, -0.1875, 0, -2.03651e-08, -3.4, 5.517, 23.554 )
+
+[node name="Banner_Red5" parent="Banners" instance=ExtResource( 9 )]
+transform = Transform( -3.05477e-08, 0, 0.125, 0, 0.6875, 0, -0.1875, 0, -2.03651e-08, -3.4, 5.517, 21.3807 )
+
+[node name="Banner_Red6" parent="Banners" instance=ExtResource( 9 )]
+transform = Transform( -3.05477e-08, 0, 0.125, 0, 0.6875, 0, -0.1875, 0, -2.03651e-08, -3.4, 5.517, 15.4057 )
+
+[node name="Banner_Red7" parent="Banners" instance=ExtResource( 9 )]
+transform = Transform( -3.05477e-08, 0, 0.125, 0, 0.6875, 0, -0.1875, 0, -2.03651e-08, 3.4375, 5.5175, 21.3256 )
+
+[node name="Banner_Red8" parent="Banners" instance=ExtResource( 9 )]
+transform = Transform( -3.05477e-08, 0, 0.125, 0, 0.6875, 0, -0.1875, 0, -2.03651e-08, 3.4375, 5.5175, 15.3504 )
 
 [node name="GateWayExit" parent="." instance=ExtResource( 7 )]
 transform = Transform( -4.88762e-08, 0, 0.25, 0, 0.3, 0, -0.3, 0, -4.07302e-08, -59.5175, 0, 33 )
@@ -1112,6 +1129,26 @@ material/0 = SubResource( 18 )
 [node name="StaticBody2" type="StaticBody" parent="Health Pack sign2"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Health Pack sign2/StaticBody2"]
+shape = SubResource( 17 )
+
+[node name="Health Pack sign3" type="MeshInstance" parent="."]
+transform = Transform( -3.09549e-06, 0, 426.271, 0, 12, 0, -19, 0, -6.94484e-05, -13.99, 12.567, -4.94758 )
+mesh = SubResource( 15 )
+material/0 = SubResource( 23 )
+
+[node name="StaticBody2" type="StaticBody" parent="Health Pack sign3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Health Pack sign3/StaticBody2"]
+shape = SubResource( 17 )
+
+[node name="Health Pack sign4" type="MeshInstance" parent="."]
+transform = Transform( -3.09549e-06, 0, -426.271, 0, 12, 0, 19, 0, -6.94484e-05, 13.99, 12.567, -5.41331 )
+mesh = SubResource( 15 )
+material/0 = SubResource( 16 )
+
+[node name="StaticBody2" type="StaticBody" parent="Health Pack sign4"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Health Pack sign4/StaticBody2"]
 shape = SubResource( 17 )
 
 [node name="Shipping Crates" type="Spatial" parent="."]
