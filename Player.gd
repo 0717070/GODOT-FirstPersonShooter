@@ -549,3 +549,8 @@ func process_respawn(delta):
 			current_grenade = "Grenade"
 
 			is_dead = false
+			
+func _colliding(Player): # code for bouncing off borders
+	if Player.is_in_group("exit"):
+			get_tree().change_scene("res://WinScene.tscn")
+			print("working!")

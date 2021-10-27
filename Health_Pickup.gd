@@ -56,5 +56,6 @@ func trigger_body_entered(body):
 		kit_size_change_values(kit_size, false)
 
 
-func _on_AreaDoor_body_entered(body):
-	pass # Replace with function body.
+
+
+
