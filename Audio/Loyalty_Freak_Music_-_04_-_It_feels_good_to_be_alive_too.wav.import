@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Loyalty_Freak_Music_-_04_-_It_feels_good_to_be_alive_too.wav-520b25495a78248c53ee193d3c7390a1.sample"
+
+[deps]
+
+source_file="res://Audio/Loyalty_Freak_Music_-_04_-_It_feels_good_to_be_alive_too.wav"
+dest_files=[ "res://.import/Loyalty_Freak_Music_-_04_-_It_feels_good_to_be_alive_too.wav-520b25495a78248c53ee193d3c7390a1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

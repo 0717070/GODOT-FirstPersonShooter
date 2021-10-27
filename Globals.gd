@@ -26,8 +26,8 @@ var PlayerScore = 0
 # v All the audio files.
 
 var audio_clips = {
-		"Pistol_shot":preload("res://Audio/gun_revolver_pistol_shot_04.wav"),
-		"Rifle_shot":preload("res://Audio/gun_rifle_sniper_shot_01 (1).wav"),
+		"Pistol_shot":preload("res://Audio/pistol.wav"),
+		"Rifle_shot":preload("res://Audio/rifle.wav"),
 		"Gun_cock":preload("res://Audio/gun_semi_auto_rifle_cock_02 (1).wav")
 }
 # The simple audio player scene

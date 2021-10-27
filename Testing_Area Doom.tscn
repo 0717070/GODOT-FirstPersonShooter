@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://WorkBench.tscn" type="PackedScene" id=2]
@@ -32,6 +32,7 @@
 [ext_resource path="res://images/Concrete007_1K_Color.png" type="Texture" id=30]
 [ext_resource path="res://Area.gd" type="Script" id=31]
 [ext_resource path="res://grenades do damages.png" type="Texture" id=32]
+[ext_resource path="res://Audio/Loyalty_Freak_Music_-_04_-_It_feels_good_to_be_alive_too.wav" type="AudioStream" id=33]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 80, 80 )
@@ -2056,5 +2057,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.800091, -0.670254, -38.386 )
 script = ExtResource( 31 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
-transform = Transform( 12, 0, 0, 0, 12, 0, 0, 0, 1, 0, 12.2343, 0 )
+transform = Transform( 12, 0, 0, 0, 12, 0, 0, 0, 1, 57.7593, 12.2343, -179.492 )
 shape = SubResource( 22 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 33 )
+autoplay = true
