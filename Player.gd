@@ -89,7 +89,7 @@ var is_dead = false
 var globals
 #globals: A variable to hold the Globals.gd singleton.
 
-
+#when the game beigins, the game will prepare the player will appear at the respawn spot unarmed. 
 func _ready():
 	camera = $Rotation_Helper/Camera
 	rotation_helper = $Rotation_Helper
@@ -184,7 +184,7 @@ func process_input(delta):
 	# Jumping
 	if is_on_floor():
 		if Input.is_action_just_pressed("movement_jump"):
-			vel.y = JUMP_SPEED
+			vel.y = JUMP_SPEED #when the space bar/ jump button is pressed, the player will jump upwards = JUMP_SPEED. 
 	# ----------------------------------
 	
 	# ----------------------------------
@@ -193,6 +193,7 @@ func process_input(delta):
 		is_sprinting = true
 	else:
 		is_sprinting = false
+	#if the player presses the sprint button while moving, they will sprint, if not, they will remain at a regualr walking speed. 
 	# ----------------------------------
 	
 	# ----------------------------------
@@ -202,13 +203,13 @@ func process_input(delta):
 			flashlight.hide()
 		else:
 			flashlight.show()
+		#the player can access the flashlight by pressing 'f'. If the player does not press 'f', the flashlight will remain hidden.
 	# ----------------------------------
 
 	# ----------------------------------
 # Capturing/Freeing cursor
 	# Capturing the mouse.
-	# Because our pause menu assures the mouse is visible, all we need to do is
-	# check if the mouse is visible, and if it is make it captured.
+	# Because our pause menu assures the mouse is visible, all we need to do is check if the mouse is visible, and if it is make it captured.
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	# ----------------------------------
@@ -216,7 +217,7 @@ func process_input(delta):
 	# ----------------------------------
 	# Changing weapons.
 	var weapon_change_number = WEAPON_NAME_TO_NUMBER[current_weapon_name]
-	
+	#changing weapons and their keybinds.
 	if Input.is_key_pressed(KEY_1):
 		weapon_change_number = 0
 	if Input.is_key_pressed(KEY_2):
@@ -225,14 +226,14 @@ func process_input(delta):
 		weapon_change_number = 2
 	if Input.is_key_pressed(KEY_4):
 		weapon_change_number = 3
-	
+	#switching weapons when another weapon is pressed
 	if Input.is_action_just_pressed("shift_weapon_positive"):
 		weapon_change_number += 1
 	if Input.is_action_just_pressed("shift_weapon_negative"):
 		weapon_change_number -= 1
 	
 	weapon_change_number = clamp(weapon_change_number, 0, WEAPON_NUMBER_TO_NAME.size()-1)
-	
+	#if no weapon has been pressed to changed, there will be no weapon changed
 	if changing_weapon == false:
 		if reloading_weapon == false:
 			if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:
@@ -240,7 +241,7 @@ func process_input(delta):
 				changing_weapon = true
 				mouse_scroll_value = weapon_change_number
 	# ----------------------------------
-	# Reloading
+	# Reloading weapons
 	if reloading_weapon == false:
 		if changing_weapon == false:
 			if Input.is_action_just_pressed("reload"):
@@ -358,9 +359,6 @@ func process_view_input(delta):
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 		return
 
-	# NOTE: Until some bugs relating to captured mouses are fixed, we cannot put the mouse view
-	# rotation code here. Once the bug(s) are fixed, code for mouse view rotation code will go here!
-
 	# ----------------------------------
 	# Joypad rotation
 
@@ -427,7 +425,7 @@ func process_reloading(delta):
 		reloading_weapon = false
 
 func process_UI(delta):
-	#Updatign the players score
+	#Updating the players score
 	$"HUD/Panel_Score/Score".text = str(Globals.PlayerScore)
 	#UI processing
 	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
@@ -476,41 +474,39 @@ func fire_bullet():
 
 func create_sound(sound_name, position=null):
 	globals.play_sound(sound_name, false, position)
-
+#healthkits, if the player picks up the health kit, add additional health unless the players health is maxed out. 
 func add_health(additional_health):
 	health += additional_health
 	health = clamp(health, 0, MAX_HEALTH)
-
+#extra ammo, if the player picks up ammo, it will refill which ever weapon is being held.
 func add_ammo(additional_ammo):
 	if (current_weapon_name != "UNARMED"):
 		if (weapons[current_weapon_name].CAN_REFILL == true):
 			weapons[current_weapon_name].spare_ammo += weapons[current_weapon_name].AMMO_IN_MAG * additional_ammo
-
+#player can pick up grenades only if they have less than 4 grenades in hand. 
 func add_grenade(additional_grenade):
 	grenade_amounts[current_grenade] += additional_grenade
 	grenade_amounts[current_grenade] = clamp(grenade_amounts[current_grenade], 0, 4)
-
+#Players health decreases when damaged by a bullet
 func bullet_hit(damage, bullet_hit_pos):
 	health -= damage
 
 func process_respawn(delta):
 
-	# If we've just died
+	# If player has 0 health, they become dead. 
 	if health <= 0 and !is_dead:
+		#Once player is dead both Body_CollisionShape and Feet_CollisionShape are disabled. 
 		$Body_CollisionShape.disabled = true
 		$Feet_CollisionShape.disabled = true
-
+		#the dead players weapon is reset to unarmed as if the game had just begun
 		changing_weapon = true
 		changing_weapon_name = "UNARMED"
-
+		#the Death sreen will become visible while the crosshair and panel (display of ammo and health) become invisble.
 		$HUD/Death_Screen.visible = true
-
 		$HUD/Panel.visible = false
 		$HUD/Crosshair.visible = false
-
 		dead_time = RESPAWN_TIME
 		is_dead = true
-
 
 		if grabbed_object != null:
 			grabbed_object.mode = RigidBody.MODE_RIGID
@@ -523,12 +519,12 @@ func process_respawn(delta):
 
 	if is_dead:
 		dead_time -= delta
-
 		var dead_time_pretty = str(dead_time).left(3)
 		$HUD/Death_Screen/Label.text = "You died\n" + dead_time_pretty + " seconds till respawn"
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 		if dead_time <= 0:
+			#when the player respawns, they will appaer at the respawn point. The crosshairs and panel will appear again and it would be as if the player had restarted the game. 
 			global_transform.origin = globals.get_respawn_position()
 
 			$Body_CollisionShape.disabled = false
@@ -544,13 +540,13 @@ func process_respawn(delta):
 				if weapon_node != null:
 					weapon_node.reset_weapon()
 
+			#the players health will be reset to 100 with the current grenade accesible being Grenade. 
 			health = 100
 			grenade_amounts = {"Grenade":2, "Sticky Grenade":2}
 			current_grenade = "Grenade"
-
 			is_dead = false
 			
-func _colliding(Player): # code for bouncing off borders
+func _colliding(Player): # code for going to win scene. 
 	if Player.is_in_group("exit"):
 			get_tree().change_scene("res://WinScene.tscn")
 			print("working!")

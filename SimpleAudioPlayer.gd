@@ -11,7 +11,7 @@ func _ready():
 
 	globals = get_node("/root/Globals")
 
-
+#play_sound expects an audio stream, named audio_stream, to be passed in, 
 func play_sound(audio_stream, position=null):
 	if audio_stream == null:
 		print ("No audio stream passed; cannot play sound")
@@ -23,7 +23,7 @@ func play_sound(audio_stream, position=null):
 	
 	audio_node.play(0.0)
 
-
+#check to see if the audio player is supposed to loop or not using should_loop. If the audio player is supposed to loop, we play the sound again from the start, at position 0.0. 
 func sound_finished():
 	if should_loop:
 		audio_node.play(0.0)

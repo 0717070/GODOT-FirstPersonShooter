@@ -49,47 +49,24 @@ var destroyed_timer = 0
 var bullet_scene = preload("Bullet_Scene.tscn")
 #bullet_scene: The bullet scene the turret fires (same scene as the player's pistol)
 
-func _ready():
-
-	$Vision_Area.connect("body_entered", self, "body_entered_vision")
-	$Vision_Area.connect("body_exited", self, "body_exited_vision")
-
-	node_turret_head = $Head
-	node_raycast = $Head/Ray_Cast
-	node_flash_one = $Head/Flash
-	node_flash_two = $Head/Flash_2
-
-	node_raycast.add_exception(self)
-	node_raycast.add_exception($Base/Static_Body)
-	node_raycast.add_exception($Head/Static_Body)
-	node_raycast.add_exception($Vision_Area)
-
-	node_flash_one.visible = false
-	node_flash_two.visible = false
-
-	smoke_particles = $Smoke
-	smoke_particles.emitting = false
-
-	turret_health = MAX_TURRET_HEALTH
-
-
 func _physics_process(delta):
-
+#check whether the turret is active. If the turret is active, we want to process the firing code.
 	if is_active == true:
-
+#if flash_timer is greater than zero, meaning the flash meshes are visible, we want to remove delta from flash_timer. If flash_timer gets to zero or less after we've subtracted delta, we want to hide both of the flash meshes.
 		if flash_timer > 0:
 			flash_timer -= delta
 
 			if flash_timer <= 0:
 				node_flash_one.visible = false
 				node_flash_two.visible = false
-
+#check whether the turret has a target. If the turret has a target, we make the turret head look at it, adding PLAYER_HEIGHT so it is not aiming at the player's feet.
 		if current_target != null:
 
 			node_turret_head.look_at(current_target.global_transform.origin + Vector3(0, PLAYER_HEIGHT, 0), Vector3(0, 1, 0))
-
+#check whether the turret's health is greater than zero. If it is, we then check whether there is ammo in the turret.
 			if turret_health > 0:
-
+#check whether fire_timer is greater than zero. If it is, the turret cannot fire and we need to remove delta from fire_timer. If fire_timer is less than or equal to zero, the turret can fire a bullet, so we call the fire_bullet function.
+#If there isn't any ammo in the turret, we check whether ammo_reload_timer is greater than zero. If it is, we subtract delta from ammo_reload_timer. If ammo_reload_timer is less than or equal to zero, we set ammo_in_turret to AMMO_IN_FULL_TURRET because the turret has waited long enough to refill its ammo.
 				if ammo_in_turret > 0:
 					if fire_timer > 0:
 						fire_timer -= delta
@@ -100,8 +77,9 @@ func _physics_process(delta):
 						ammo_reload_timer -= delta
 					else:
 						ammo_in_turret = AMMO_IN_FULL_TURRET
-
+#check whether the turret's health is less than or equal to 0 outside of whether it is active or not. If the turret's health is zero or less, we then check whether destroyed_timer is greater than zero. If it is, we subtract delta from destroyed_timer.
 	if turret_health <= 0:
+#If destroyed_timer is less than or equal to zero, we set turret_health to MAX_TURRET_HEALTH and stop emitting smoke particles by setting smoke_particles.emitting to false.
 		if destroyed_timer > 0:
 			destroyed_timer -= delta
 		else:
@@ -110,50 +88,60 @@ func _physics_process(delta):
 
 
 func fire_bullet():
-
+#check whether the turret is using a raycast
 	if use_raycast == true:
+		#make the raycast look at the target, ensuring the raycast will hit the target if nothing is in the way.
 		node_raycast.look_at(current_target.global_transform.origin + Vector3(0, PLAYER_HEIGHT, 0), Vector3(0, 1, 0))
 
 		node_raycast.force_raycast_update()
-
+		#check whether the raycast has collided with anything
+		#If it has, then check whether the collided body has the bullet_hit method. 
 		if node_raycast.is_colliding():
 			var body = node_raycast.get_collider()
 			if body.has_method("bullet_hit"):
 				body.bullet_hit(TURRET_DAMAGE_RAYCAST, node_raycast.get_collision_point())
-
+	#then subtract 1 from ammo_in_turret.
 		ammo_in_turret -= 1
 
 	else:
+		#If the turret is not using a raycast, we spawn a bullet object instead.
 		var clone = bullet_scene.instance()
 		var scene_root = get_tree().root.get_children()[0]
 		scene_root.add_child(clone)
 
 		clone.global_transform = $Head/Barrel_End.global_transform
+		#set the bullet's global transform to the barrel end, scale it up since it's too small, and set its damage and speed using the turret's constant class variables
 		clone.scale = Vector3(8, 8, 8)
 		clone.BULLET_DAMAGE = TURRET_DAMAGE_BULLET
 		clone.BULLET_SPEED = 60
-
+	#then subtract 1 from ammo_in_turret.
 		ammo_in_turret -= 1
-
+	#make both of the muzzle flash meshes visible
 	node_flash_one.visible = true
 	node_flash_two.visible = true
-
+	#set flash_timer and fire_timer to FLASH_TIME and FIRE_TIME, respectively
 	flash_timer = FLASH_TIME
 	fire_timer = FIRE_TIME
-
+	#check whether the turret has used the last bullet in its ammo
 	if ammo_in_turret <= 0:
+		#set ammo_reload_timer to AMMO_RELOAD_TIME so the turret reloads.
 		ammo_reload_timer = AMMO_RELOAD_TIME
 
 
 func body_entered_vision(body):
+	##check whether the turret currently has a target by checking if current_target is equal to null
 	if current_target == null:
+		##If the turret does not have a target, we then check whether the body that has just entered the vision Area is a KinematicBody.
+		#f the body that just entered the vision Area is a KinematicBody, we set current_target to the body, and set is_active to true.
 		if body is KinematicBody:
 			current_target = body
 			is_active = true
 
 
 func body_exited_vision(body):
+	#check whether the turret has a target. If it does, we then check whether the body that has just left the turret's vision Area is the turret's target.
 	if current_target != null:
+		#If the body that has just left the vision Area is the turret's current target, we set current_target to null, set is_active to false, and reset all the variables related to firing the turret since the turret no longer has a target to fire at.
 		if body == current_target:
 			current_target = null
 			is_active = false
@@ -165,10 +153,10 @@ func body_exited_vision(body):
 
 
 func bullet_hit(damage, bullet_hit_pos):
+	#subtract however much damage the bullet causes from the turret's health
 	turret_health -= damage
-
+#check whether the turret has been destroyed (health being zero or less). If the turret is destroyed, we start emitting the smoke particles and set destroyed_timer to DESTROYED_TIME so the turret has to wait before being repaired.
 	if turret_health <= 0:
-		Globals.PlayerScore += 1
-		print (Globals.PlayerScore)
 		smoke_particles.emitting = true
 		destroyed_timer = DESTROYED_TIME
+

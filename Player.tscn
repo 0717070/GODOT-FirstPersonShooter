@@ -4359,3 +4359,6 @@ text = "You Lose
 0.00 seconds till respawn"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

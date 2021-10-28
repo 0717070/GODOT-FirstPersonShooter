@@ -24,6 +24,9 @@ margin_top = 10.0
 margin_right = -5.0
 margin_bottom = 30.0
 text = "FPS: 60"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="OS_Label" type="Label" parent="."]
 anchor_right = 1.0
